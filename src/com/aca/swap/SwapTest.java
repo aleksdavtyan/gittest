@@ -2,7 +2,7 @@ package com.aca.swap;
 
 import java.util.Scanner;
 
-public class Test {
+public class SwapTest {
 
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
