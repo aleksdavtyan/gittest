@@ -39,7 +39,7 @@ public class RandomNumberGuess {
                     System.out.println(GREATER + " TRY AGAIN: ");
                     break;
                 case EQUAL:
-                    System.out.println(EQUAL + " You Guess the Number from " + numberOfGuesses + " try. Congrats!!!");
+                    System.out.println(EQUAL + "! You Guess the Number from " + numberOfGuesses + " experiments. Congrats!!!");
                     userCorrrect = true;
                     break;
             }
