@@ -15,9 +15,9 @@ public class IntegerWrapper {
         this.number = number;
     }
 
-    public static void swap(IntegerWrapper a1, IntegerWrapper a2) {
-        int a = a1.number;
-        a1.number = a2.number;
-        a2.number = a;
+    public static void swap(IntegerWrapper number1, IntegerWrapper number2) {
+        int a = number1.number;
+        number1.number = number2.number;
+        number2.number = a;
     }
 }
