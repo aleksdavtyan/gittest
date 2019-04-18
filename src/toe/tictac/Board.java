@@ -22,6 +22,8 @@ public class Board {
         int firstIndex, secondIndex;
         String position;
         String winner = null;
+        int numberOfX = 0;
+        int numberOfO = 0;
         Scanner scanner = new Scanner(System.in);
         System.out.println("X's will play first. Enter a cell number to place X in:");
         while (winner == null) {
@@ -46,8 +48,10 @@ public class Board {
                 brd.board[firstIndex][secondIndex] = turn;
                 if (turn.equals("X")) {
                     turn = "O";
+                    numberOfX++;
                 } else {
                     turn = "X";
+                    numberOfO++;
                 }
                 printBoard(brd);
                 winner = checkWinner(brd);
@@ -58,8 +62,10 @@ public class Board {
         }
         if (winner.equals("full")) {
             System.out.println("Board is full! Game over and nobody has won! Thanks for playing.");
+            System.out.println("X's move count = " + numberOfX + "\nO's move count = " + numberOfO);
         } else {
             System.out.println("Congratulations! " + winner + " has won! Thanks for playing.");
+            System.out.println("X's move count = " + numberOfX + "\nO's move count = " + numberOfO);
         }
     }
 
