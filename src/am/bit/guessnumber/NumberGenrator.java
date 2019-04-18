@@ -14,7 +14,7 @@ public class NumberGenrator {
     }
 
     NumberGenrator() {
-        Random random = new Random();
+        Random random = new Random(15);
         this.number = random.nextInt(100);
     }
 }

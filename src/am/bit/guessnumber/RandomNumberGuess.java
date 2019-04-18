@@ -24,8 +24,8 @@ public class RandomNumberGuess {
         int number;
         int numberOfGuesses = 0;
         boolean userCorrrect = false;
-        System.out.println("The Generated nnumber = " + generatedNum.getNumber());
-        System.out.print("Please input the number untill 100: ");
+        System.out.println("The Generated number = " + generatedNum.getNumber());
+        System.out.print("Please input the number until 100: ");
 
         while (!userCorrrect) {
             numberOfGuesses++;
