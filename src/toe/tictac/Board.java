@@ -24,7 +24,7 @@ public class Board {
         String winner = null;
         int numberOfX = 0;
         int numberOfO = 0;
-        System.out.println("X's will play first. Enter a cell number to place X in:");
+        System.out.println("X's will play first. Please enter a cell number to place X in:");
         while (winner == null) {
             position = InputReader.readStr();
             try {
@@ -71,11 +71,12 @@ public class Board {
     String checkWinner(Board brd) {
         String sizeTimeX = new String(new char[size]).replace("\0", "X");
         String sizeTimeO = new String(new char[size]).replace("\0", "O");
-        String row, column, diagonal;
+        String row, column, diagonal, secDiagonal;
         if (checkFullness(brd)) {
             return "full";
         }
         diagonal = "";
+        secDiagonal = "";
         for (int i = 0; i < brd.size; i++) {
             row = "";
             column = "";
@@ -83,12 +84,15 @@ public class Board {
                 row += brd.board[i][j];
                 column += brd.board[j][i];
                 if(i == j) {
-                    diagonal += brd.board[i][i];
+                    diagonal += brd.board[i][j];
+                }
+                if(i == brd.size - j - 1) {
+                    secDiagonal += brd.board[i][j];
                 }
             }
-            if (row.equals(sizeTimeX) || column.equals(sizeTimeX) || diagonal.equals(sizeTimeX)) {
+            if (row.equals(sizeTimeX) || column.equals(sizeTimeX) || diagonal.equals(sizeTimeX) || secDiagonal.equals(sizeTimeX)) {
                 return "X";
-            } else if (row.equals(sizeTimeO) || column.equals(sizeTimeO) || diagonal.equals(sizeTimeO)) {
+            } else if (row.equals(sizeTimeO) || column.equals(sizeTimeO) || diagonal.equals(sizeTimeO) || secDiagonal.equals(sizeTimeX)) {
                 return "O";
             }
         }
