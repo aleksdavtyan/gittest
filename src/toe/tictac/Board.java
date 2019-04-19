@@ -1,12 +1,12 @@
 package toe.tictac;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Board {
+    private String[][] board;
     private int size;
-    String[][] board;
     private String turn = "X";
+    private String winner = null;
 
     Board(int size) {
         this.size = size;
@@ -18,59 +18,62 @@ public class Board {
         }
     }
 
-    void playerMove(Board brd) {
+    void playerMove(Board brd, int winSize) {
         int firstIndex, secondIndex;
         String position;
-        String winner = null;
         int numberOfX = 0;
         int numberOfO = 0;
-        System.out.println("X's will play first. Please enter a cell number to place X in:");
-        while (winner == null) {
-            position = InputReader.readStr();
-            try {
-                firstIndex = Integer.parseInt("" + position.charAt(0));
-                secondIndex = Integer.parseInt("" + position.charAt(1));
-            } catch (IndexOutOfBoundsException e) {
-                System.out.println("Invalid input number. Please re-enter a number from board cells:");
-                continue;
-            }
-            try {
-                if (!((firstIndex >= 0 && firstIndex < (brd.size)) && (secondIndex >= 0 && secondIndex < (brd.size)))) {
+        if (brd.size >= winSize) {
+            System.out.println("X's will play first. Please enter a cell number to place X in:");
+            while (winner == null) {
+                position = InputReader.readStr();
+                try {
+                    firstIndex = Integer.parseInt("" + position.charAt(0));
+                    secondIndex = Integer.parseInt("" + position.charAt(1));
+                } catch (IndexOutOfBoundsException e) {
                     System.out.println("Invalid input number. Please re-enter a number from board cells:");
                     continue;
                 }
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid input number. Please re-enter a number from board cells:");
-                continue;
-            }
-            if (brd.board[firstIndex][secondIndex].equals(position)) {
-                brd.board[firstIndex][secondIndex] = turn;
-                if (turn.equals("X")) {
-                    turn = "O";
-                    numberOfX++;
-                } else {
-                    turn = "X";
-                    numberOfO++;
+                try {
+                    if (!((firstIndex >= 0 && firstIndex < (brd.size)) && (secondIndex >= 0 && secondIndex < (brd.size)))) {
+                        System.out.println("Invalid input number. Please re-enter a number from board cells:");
+                        continue;
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid input number. Please re-enter a number from board cells:");
+                    continue;
                 }
-                printBoard(brd);
-                winner = checkWinner(brd);
-            } else {
-                System.out.println("Cell already taken. Re-enter another cell number:");
-                continue;
+                if (brd.board[firstIndex][secondIndex].equals(position)) {
+                    brd.board[firstIndex][secondIndex] = turn;
+                    if (turn.equals("X")) {
+                        turn = "O";
+                        numberOfX++;
+                    } else {
+                        turn = "X";
+                        numberOfO++;
+                    }
+                    printBoard(brd);
+                    winner = checkWinner(brd, winSize);
+                } else {
+                    System.out.println("Cell already taken. Re-enter another cell number:");
+                    continue;
+                }
             }
-        }
-        if (winner.equals("full")) {
-            System.out.println("Board is full! Game over and nobody has won! Thanks for playing.");
-            System.out.println("X's move count = " + numberOfX + "\nO's move count = " + numberOfO);
+            if (winner.equals("full")) {
+                System.out.println("Board is full! Game over and nobody has won! Thanks for playing.");
+                System.out.println("X's move count = " + numberOfX + "\nO's move count = " + numberOfO);
+            } else {
+                System.out.println("Congratulations! " + winner + " has won! Thanks for playing.");
+                System.out.println("X's move count = " + numberOfX + "\nO's move count = " + numberOfO);
+            }
         } else {
-            System.out.println("Congratulations! " + winner + " has won! Thanks for playing.");
-            System.out.println("X's move count = " + numberOfX + "\nO's move count = " + numberOfO);
+            System.out.println("Winning condition size must be less than Board size.");
         }
     }
 
-    String checkWinner(Board brd) {
-        String sizeTimeX = new String(new char[size]).replace("\0", "X");
-        String sizeTimeO = new String(new char[size]).replace("\0", "O");
+    String checkWinner(Board brd, int winSize) {
+        String winSizeX = new String(new char[winSize]).replace("\0", "X");
+        String winSizeO = new String(new char[winSize]).replace("\0", "O");
         String row, column, diagonal, secDiagonal;
         if (checkFullness(brd)) {
             return "full";
@@ -83,16 +86,16 @@ public class Board {
             for (int j = 0; j < brd.size; j++) {
                 row += brd.board[i][j];
                 column += brd.board[j][i];
-                if(i == j) {
+                if (i == j) {
                     diagonal += brd.board[i][j];
                 }
-                if(i == brd.size - j - 1) {
+                if (i == brd.size - j - 1) {
                     secDiagonal += brd.board[i][j];
                 }
             }
-            if (row.equals(sizeTimeX) || column.equals(sizeTimeX) || diagonal.equals(sizeTimeX) || secDiagonal.equals(sizeTimeX)) {
+            if (row.contains(winSizeX) || column.contains(winSizeX) || diagonal.contains(winSizeX) || secDiagonal.contains(winSizeX)) {
                 return "X";
-            } else if (row.equals(sizeTimeO) || column.equals(sizeTimeO) || diagonal.equals(sizeTimeO) || secDiagonal.equals(sizeTimeX)) {
+            } else if (row.contains(winSizeO) || column.contains(winSizeO) || diagonal.contains(winSizeO) || secDiagonal.contains(winSizeO)) {
                 return "O";
             }
         }

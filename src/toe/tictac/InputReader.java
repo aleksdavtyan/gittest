@@ -20,7 +20,7 @@ public class InputReader {
         try {
             inputInt = intScanner.nextInt();
         } catch (InputMismatchException e) {
-            System.out.println("Invalid input number. Please re-enter a number.");
+            System.out.println("Invalid input. Please re-enter a number.");
         }
         return inputInt;
     }
