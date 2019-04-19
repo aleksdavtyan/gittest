@@ -115,14 +115,14 @@ public class Board {
     }
 
     public void printBoard(Board brd) {
-        System.out.print(new String(new char[6 * size]).replace("\0", "-"));
+        System.out.print(new String(new char[5 * size]).replace("\0", "-"));
         for (int i = 0; i < size; i++) {
             System.out.println(" ");
             for (int j = 0; j < size; j++) {
-                System.out.print("| " + brd.board[i][j] + " |");
+                System.out.print(" " + brd.board[i][j] + " |");
             }
         }
         System.out.println(" ");
-        System.out.println(new String(new char[6 * size]).replace("\0", "-"));
+        System.out.println(new String(new char[5 * size]).replace("\0", "-"));
     }
 }
