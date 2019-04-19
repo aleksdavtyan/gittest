@@ -1,5 +1,6 @@
 package toe.tictac;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class InputReader {
@@ -15,7 +16,11 @@ public class InputReader {
     }
 
     public static int readInt() {
-        inputInt = scanner.nextInt();
+        try {
+            inputInt = scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input number. Please re-enter a number.");
+        }
         return inputInt;
     }
 }
