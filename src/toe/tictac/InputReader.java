@@ -7,17 +7,18 @@ public class InputReader {
 
     static String inputStr;
     static int inputInt;
-    static Scanner scanner = new Scanner(System.in);
 
 
     public static String readStr() {
-        inputStr = scanner.nextLine();
+        Scanner strScanner = new Scanner(System.in);
+        inputStr = strScanner.nextLine();
         return inputStr;
     }
 
     public static int readInt() {
+        Scanner intScanner = new Scanner(System.in);
         try {
-            inputInt = scanner.nextInt();
+            inputInt = intScanner.nextInt();
         } catch (InputMismatchException e) {
             System.out.println("Invalid input number. Please re-enter a number.");
         }

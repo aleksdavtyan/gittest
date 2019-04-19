@@ -8,6 +8,7 @@ public class TicTacToe {
         System.out.println("Please enter the square Board size:");
         size = InputReader.readInt();
         Board brd = new Board(size);
+        System.out.println("This is initial board.");
         brd.printBoard(brd);
         brd.playerMove(brd);
     }

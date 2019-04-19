@@ -1,6 +1,7 @@
 package toe.tictac;
 
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 public class Board {
     private int size;
@@ -30,7 +31,7 @@ public class Board {
                 firstIndex = Integer.parseInt("" + position.charAt(0));
                 secondIndex = Integer.parseInt("" + position.charAt(1));
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("Invalid input number. Please re-enter a number.");
+                System.out.println("Invalid input number. Please re-enter a number from board cells:");
                 continue;
             }
             try {
@@ -70,43 +71,31 @@ public class Board {
     String checkWinner(Board brd) {
         String sizeTimeX = new String(new char[size]).replace("\0", "X");
         String sizeTimeO = new String(new char[size]).replace("\0", "O");
-        String row, column;
+        String row, column, diagonal;
         if (checkFullness(brd)) {
             return "full";
         }
+        diagonal = "";
         for (int i = 0; i < brd.size; i++) {
             row = "";
+            column = "";
             for (int j = 0; j < brd.size; j++) {
                 row += brd.board[i][j];
+                column += brd.board[j][i];
+                if(i == j) {
+                    diagonal += brd.board[i][i];
+                }
             }
-            if (row.equals(sizeTimeX)) {
+            if (row.equals(sizeTimeX) || column.equals(sizeTimeX) || diagonal.equals(sizeTimeX)) {
                 return "X";
-            } else if (row.equals(sizeTimeO)) {
+            } else if (row.equals(sizeTimeO) || column.equals(sizeTimeO) || diagonal.equals(sizeTimeO)) {
                 return "O";
             }
         }
 
-        for (int j = 0; j < brd.size; j++) {
-            column = "";
-            for (int i = 0; i < brd.size; i++) {
-                column += brd.board[i][j];
-            }
-            if (column.equals(sizeTimeX)) {
-                return "X";
-            } else if (column.equals(sizeTimeO)) {
-                return "O";
-            }
-        }
         System.out.println(turn + "'s turn. Please enter a cell number to place " + turn + " in: ");
         return null;
     }
-
-
-//    String checkRow(Board brd, int size) {
-//
-//
-//        return null;
-//    }
 
     boolean checkFullness(Board brd) {
         for (int i = 0; i < brd.size; i++) {
