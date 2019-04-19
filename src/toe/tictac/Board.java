@@ -1,7 +1,6 @@
 package toe.tictac;
 
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 public class Board {
     private int size;
@@ -24,10 +23,9 @@ public class Board {
         String winner = null;
         int numberOfX = 0;
         int numberOfO = 0;
-        Scanner scanner = new Scanner(System.in);
         System.out.println("X's will play first. Enter a cell number to place X in:");
         while (winner == null) {
-            position = scanner.nextLine();
+            position = InputReader.readStr();
             try {
                 firstIndex = Integer.parseInt("" + position.charAt(0));
                 secondIndex = Integer.parseInt("" + position.charAt(1));
